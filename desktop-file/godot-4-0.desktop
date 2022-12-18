@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Godot
+Comment=The game engine you've been waiting for
+Exec=Godot %f
+Terminal=false
+Type=Application
+Icon=meta/gui/icon.svg
+StartupNotify=true
+Categories=Development;Games;
