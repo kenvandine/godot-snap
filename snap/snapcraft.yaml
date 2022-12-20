@@ -12,7 +12,53 @@ architectures:
   - build-on: amd64
 compression: lzo
 
+layout:
+  /usr/lib/dotnet:
+    bind: $SNAP/usr/lib/dotnet
+  /usr/share/drirc.d:
+    bind: $SNAP/usr/share/drirc.d
+  /usr/lib/x86_64-linux-gnu/dri:
+    bind: $SNAP/usr/lib/x86_64-linux-gnu/dri
+  /usr/share/vulkan:
+    bind: $SNAP/usr/share/vulkan
+  /usr/lib/x86_64-linux-gnu/libvulkan_intel.so:
+    bind-file: $SNAP/usr/lib/x86_64-linux-gnu/libvulkan_intel.so
+  /usr/lib/x86_64-linux-gnu/libvulkan_lvp.so:
+    bind-file: $SNAP/usr/lib/x86_64-linux-gnu/libvulkan_lvp.so
+  /usr/lib/x86_64-linux-gnu/libvulkan_radeon.so:
+    bind-file: $SNAP/usr/lib/x86_64-linux-gnu/libvulkan_radeon.so
+
 parts:
+  dotnet:
+    plugin: nil
+    stage-packages:
+      - dotnet-sdk-6.0
+      - dotnet-runtime-6.0
+      - dotnet6
+      - dotnet-host
+
+    prime:
+      - usr/bin/dotnet
+      - usr/lib/dotnet
+      - usr/lib/*/liblttng-ust*
+      - usr/lib/*/libnuma*
+
+  libs:
+    plugin: nil
+    stage-packages:
+      - libvkd3d1
+      - mesa-va-drivers
+      - mesa-vulkan-drivers
+      - vulkan-tools
+    prime:
+      - usr/lib/*/libvkd3d*
+      - usr/lib/*/dri
+      - usr/lib/*/libVk*
+      - usr/lib/*/libvulkan*
+      - usr/lib/*/libxcb-randr*
+      - usr/share/vulkan
+      - usr/bin/vk*
+
   godot-4-0:
     plugin: dump
     source: https://downloads.tuxfamily.org/godotengine/4.0/beta8/mono/Godot_v$SNAPCRAFT_PROJECT_VERSION_mono_linux_x86_64.zip
@@ -51,3 +97,4 @@ apps:
       - removable-media
     environment:
       HOME: $SNAP_USER_COMMON
+      VK_ICD_FILENAMESr: /var/lib/snapd/lib/vulkan/icd.d/nvidia_icd.json:$SNAP/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:$SNAP/usr/share/vulkan/icd.d/intel_icd.x86_64.json

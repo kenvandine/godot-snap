@@ -1,9 +1,10 @@
 [Desktop Entry]
-Name=Godot
-Comment=The game engine you've been waiting for
+Name=Godot Engine
+GenericName=Libre game engine
+Comment=Multi-platform 2D and 3D game engine with a feature rich editor
 Exec=Godot %f
 Terminal=false
 Type=Application
 Icon=meta/gui/icon.svg
 StartupNotify=true
-Categories=Development;Games;
+Categories=Development;IDE;Games;
