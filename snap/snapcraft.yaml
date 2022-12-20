@@ -46,12 +46,10 @@ parts:
   libs:
     plugin: nil
     stage-packages:
-      - libvkd3d1
       - mesa-va-drivers
       - mesa-vulkan-drivers
       - vulkan-tools
     prime:
-      - usr/lib/*/libvkd3d*
       - usr/lib/*/dri
       - usr/lib/*/libVk*
       - usr/lib/*/libvulkan*
