@@ -1,6 +1,6 @@
 name: godot-4-0
 base: core22
-version: 4.0-beta8
+version: 4.0-beta9
 summary: The game engine you've been waiting for.
 description: |
   The Godot Engine is a free, all-in-one, cross-platform game engine that makes it easy for you to create 2D and 3D games.
@@ -59,7 +59,7 @@ parts:
 
   godot-4-0:
     plugin: dump
-    source: https://downloads.tuxfamily.org/godotengine/4.0/beta8/mono/Godot_v$SNAPCRAFT_PROJECT_VERSION_mono_linux_x86_64.zip
+    source: https://downloads.tuxfamily.org/godotengine/4.0/beta9/mono/Godot_v$SNAPCRAFT_PROJECT_VERSION_mono_linux_x86_64.zip
     override-build: |
       craftctl default
       mv Godot* tmp/
