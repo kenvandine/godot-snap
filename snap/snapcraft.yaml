@@ -93,6 +93,8 @@ apps:
       - audio-playback
       - audio-record
       - removable-media
+      - joystick
+      - hardware-observe
     environment:
       HOME: $SNAP_USER_COMMON
       VK_ICD_FILENAMESr: /var/lib/snapd/lib/vulkan/icd.d/nvidia_icd.json:$SNAP/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:$SNAP/usr/share/vulkan/icd.d/intel_icd.x86_64.json
