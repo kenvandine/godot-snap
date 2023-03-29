@@ -1,4 +1,4 @@
-name: godot-4-0
+name: godot-4
 base: core22
 version: '4.0'
 summary: The game engine you've been waiting for.
@@ -59,7 +59,7 @@ parts:
       - usr/share/vulkan
       - usr/bin/vk*
 
-  godot-4-0:
+  godot-4:
     plugin: dump
     source: https://downloads.tuxfamily.org/godotengine/4.0/mono/Godot_v$SNAPCRAFT_PROJECT_VERSION-stable_mono_linux_x86_64.zip
     override-build: |
@@ -76,7 +76,7 @@ parts:
       cp * $CRAFT_PART_INSTALL/meta/gui
 
   cleanup:
-    after: [ godot-4-0 ]
+    after: [ godot-4 ]
     plugin: nil
     build-snaps: [ gnome-42-2204 ]
     override-prime: |
@@ -85,10 +85,10 @@ parts:
         find . -type f,l -exec rm -f $SNAPCRAFT_PRIME/{} \;
 
 apps:
-  godot-4-0:
+  godot-4:
     extensions: [gnome]
     command: Godot_v$SNAPCRAFT_PROJECT_VERSION-stable_mono_linux.x86_64
-    desktop: meta/gui/godot-4-0.desktop
+    desktop: meta/gui/godot-4.desktop
     plugs:
       - home
       - network
