@@ -1,6 +1,6 @@
 name: godot-4
 base: core22
-version: '4.1'
+version: '4.1.1'
 summary: The game engine you've been waiting for.
 description: |
   The Godot Engine is a free, all-in-one, cross-platform game engine that makes it easy for you to create 2D and 3D games.
