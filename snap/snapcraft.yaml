@@ -1,6 +1,6 @@
 name: godot-4
-base: core22
-version: '4.3'
+base: core24
+version: '4.4'
 summary: The game engine you've been waiting for.
 description: |
   The Godot Engine is a free, all-in-one, cross-platform game engine that makes it easy for you to create 2D and 3D games.
@@ -8,15 +8,14 @@ description: |
 grade: stable
 confinement: strict
 
-architectures:
-  - build-on: amd64
+platforms:
+  amd64:
+
 compression: lzo
 
 layout:
   /usr/lib/dotnet:
     bind: $SNAP/usr/lib/dotnet
-  /usr/share/drirc.d:
-    bind: $SNAP/usr/share/drirc.d
   /usr/lib/x86_64-linux-gnu/dri:
     bind: $SNAP/usr/lib/x86_64-linux-gnu/dri
   /usr/share/vulkan:
@@ -32,9 +31,9 @@ parts:
   dotnet:
     plugin: nil
     stage-packages:
-      - dotnet-sdk-6.0
-      - dotnet-runtime-6.0
-      - dotnet6
+      - dotnet-sdk-8.0
+      - dotnet-runtime-8.0
+      - dotnet8
       - dotnet-host
 
     prime:
@@ -78,10 +77,10 @@ parts:
   cleanup:
     after: [ godot-4 ]
     plugin: nil
-    build-snaps: [ gnome-42-2204 ]
+    build-snaps: [ gnome-46-2404 ]
     override-prime: |
         set -eux
-        cd /snap/gnome-42-2204/current
+        cd /snap/gnome-46-2404/current
         find . -type f,l -exec rm -f $SNAPCRAFT_PRIME/{} \;
 
 apps:
