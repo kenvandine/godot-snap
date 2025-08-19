@@ -26,6 +26,12 @@ layout:
     bind-file: $SNAP/usr/lib/x86_64-linux-gnu/libvulkan_lvp.so
   /usr/lib/x86_64-linux-gnu/libvulkan_radeon.so:
     bind-file: $SNAP/usr/lib/x86_64-linux-gnu/libvulkan_radeon.so
+  /usr/lib/git-core:
+    bind: $SNAP/usr/lib/git-core
+  /usr/share/git-core:
+    bind: $SNAP/usr/share/git-core
+  /etc/gitconfig:
+    bind-file: $SNAP/etc/gitconfig
 
 parts:
   dotnet:
@@ -66,6 +72,18 @@ parts:
       mv Godot* tmp/
       mv tmp/* $CRAFT_PART_INSTALL/
       rmdir tmp
+
+  git:
+    plugin: nil
+    stage-packages:
+      - git
+    override-build: |
+      craftctl default
+      mkdir -p $CRAFT_PART_INSTALL/etc
+      touch $CRAFT_PART_INSTALL/etc/gitconfig
+    prime:
+      - -usr/share/doc
+      - -etc/bash*
 
   desktop-file:
     plugin: dump
