@@ -10,22 +10,23 @@ confinement: strict
 
 platforms:
   amd64:
+  arm64:
 
 compression: lzo
 
 layout:
   /usr/lib/dotnet:
     bind: $SNAP/usr/lib/dotnet
-  /usr/lib/x86_64-linux-gnu/dri:
-    bind: $SNAP/usr/lib/x86_64-linux-gnu/dri
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri
   /usr/share/vulkan:
     bind: $SNAP/usr/share/vulkan
-  /usr/lib/x86_64-linux-gnu/libvulkan_intel.so:
-    bind-file: $SNAP/usr/lib/x86_64-linux-gnu/libvulkan_intel.so
-  /usr/lib/x86_64-linux-gnu/libvulkan_lvp.so:
-    bind-file: $SNAP/usr/lib/x86_64-linux-gnu/libvulkan_lvp.so
-  /usr/lib/x86_64-linux-gnu/libvulkan_radeon.so:
-    bind-file: $SNAP/usr/lib/x86_64-linux-gnu/libvulkan_radeon.so
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_intel.so:
+    bind-file: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_intel.so
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_lvp.so:
+    bind-file: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_lvp.so
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_radeon.so:
+    bind-file: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_radeon.so
   /usr/lib/git-core:
     bind: $SNAP/usr/lib/git-core
   /usr/share/git-core:
@@ -65,13 +66,32 @@ parts:
       - usr/bin/vk*
 
   godot-4:
-    plugin: dump
-    source: https://github.com/godotengine/godot/releases/download/$SNAPCRAFT_PROJECT_VERSION-stable/Godot_v$SNAPCRAFT_PROJECT_VERSION-stable_mono_linux_x86_64.zip
+    plugin: nil
+    build-packages:
+      - curl
+      - unzip
     override-build: |
-      craftctl default
-      mv Godot* tmp/
-      mv tmp/* $CRAFT_PART_INSTALL/
-      rmdir tmp
+      set -ex
+      case "$CRAFT_ARCH_BUILD_FOR" in
+        amd64)  arch=x86_64    ;;
+        arm64)  arch=arm64  ;;
+        *)      arch=""     ;;
+      esac
+
+      rm -rf $CRAFT_PART_INSTALL/*
+
+      if [[ -n $arch ]]; then
+        curl -LO --retry-connrefused --retry 10 https://github.com/godotengine/godot/releases/download/$SNAPCRAFT_PROJECT_VERSION-stable/Godot_v$SNAPCRAFT_PROJECT_VERSION-stable_mono_linux_$arch.zip
+      else
+        echo "Unsupported arch"
+        exit 1
+      fi
+
+      unzip *zip
+      rm -f *zip
+      mkdir tmp
+      mv Godot*/* $CRAFT_PART_INSTALL/
+      mv $CRAFT_PART_INSTALL/Godot_v$SNAPCRAFT_PROJECT_VERSION-stable_mono_linux.* $CRAFT_PART_INSTALL/godot-4
 
   git:
     plugin: nil
@@ -104,7 +124,7 @@ parts:
 apps:
   godot-4:
     extensions: [gnome]
-    command: Godot_v$SNAPCRAFT_PROJECT_VERSION-stable_mono_linux.x86_64
+    command: godot-4
     desktop: meta/gui/godot-4.desktop
     plugs:
       - home
