@@ -74,7 +74,7 @@ parts:
       set -ex
       case "$CRAFT_ARCH_BUILD_FOR" in
         amd64)  arch=x86_64    ;;
-        arm64)  arch=aarch64  ;;
+        arm64)  arch=arm64  ;;
         *)      arch=""     ;;
       esac
 
