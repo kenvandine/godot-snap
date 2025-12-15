@@ -18,7 +18,7 @@ jobs:
         run: |
           VERSION=$(
             curl -sL https://api.github.com/repos/godotengine/godot/releases | 
-            jq .  | grep tag_name | grep -v beta | grep -v rc | head -n 1 | cut -d'"' -f4 | tr -d 'v' | sed 's/-stable//g'
+            jq .  | grep tag_name | grep -v beta | grep -v rc | head -n 1 | cut -d'"' -f4 | tr -d 'v' | grep -v ^3 | sed 's/-stable//g'
           )
           if [ ${#VERSION} -gt 0 ]; then
             sed -i 's/^\(version: \).*$/\1'"$VERSION"'/' snap/snapcraft.yaml
