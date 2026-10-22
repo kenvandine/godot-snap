@@ -81,7 +81,7 @@ parts:
       rm -rf $CRAFT_PART_INSTALL/*
 
       if [[ -n $arch ]]; then
-        curl -LO --retry-connrefused --retry 10 https://github.com/godotengine/godot/releases/download/$SNAPCRAFT_PROJECT_VERSION-stable/Godot_v$SNAPCRAFT_PROJECT_VERSION-stable_mono_linux_$arch.zip
+        curl -LO --retry-connrefused --retry 10 https://github.com/godotengine/godot/releases/download/$SNAPCRAFT_PROJECT_VERSION-stable/Godot_v$SNAPCRAFT_PROJECT_VERSION-stable_linux_$arch.zip
       else
         echo "Unsupported arch"
         exit 1
@@ -91,7 +91,7 @@ parts:
       rm -f *zip
       mkdir tmp
       mv Godot*/* $CRAFT_PART_INSTALL/
-      mv $CRAFT_PART_INSTALL/Godot_v$SNAPCRAFT_PROJECT_VERSION-stable_mono_linux.* $CRAFT_PART_INSTALL/godot-4
+      mv $CRAFT_PART_INSTALL/Godot_v$SNAPCRAFT_PROJECT_VERSION-stable_linux.* $CRAFT_PART_INSTALL/godot-4
 
   git:
     plugin: nil
