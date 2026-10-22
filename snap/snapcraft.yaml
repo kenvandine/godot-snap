@@ -27,6 +27,10 @@ layout:
     bind-file: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_lvp.so
   /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_radeon.so:
     bind-file: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_radeon.so
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan.so:
+    bind-file: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan.so
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_nvidia.so:
+    bind-file: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan_nvidia.so
   /usr/lib/git-core:
     bind: $SNAP/usr/lib/git-core
   /usr/share/git-core:
@@ -136,4 +140,4 @@ apps:
       - hardware-observe
     environment:
       HOME: $SNAP_USER_COMMON
-      VK_ICD_FILENAMESr: /var/lib/snapd/lib/vulkan/icd.d/nvidia_icd.json:$SNAP/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:$SNAP/usr/share/vulkan/icd.d/intel_icd.x86_64.json
+      VK_ICD_FILENAMES: /usr/share/vulkan/icd.d/nvidia_icd.json:/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:/usr/share/vulkan/icd.d/intel_icd.x86_64.json:/usr/share/vulkan/icd.d/intel_icd.json:/usr/share/vulkan/icd.d/lvp_icd.x86_64.json:/usr/share/vulkan/icd.d/radeon_icd.json:/usr/share/vulkan/icd.d/intel_icd.json
